@@ -19,11 +19,13 @@ public:
 
     int width();
 
-    void set(int r, int c, char v);
+    double get(int r, int c);
 
-    Matrix operator+(const Matrix&);
+    void set(int r, int c, double v);
 
-    Matrix operator*(const Matrix&);
+    Matrix operator+(const Matrix &);
+
+    Matrix operator*(const Matrix &);
 
     friend ostream &operator<<(ostream &, const Matrix &);
 

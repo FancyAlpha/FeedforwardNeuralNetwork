@@ -13,10 +13,26 @@ double Neuron::tanhFunction(double x) {
     return tanh(x);
 }
 
-Matrix Neuron::sigmoidFunction(Matrix m) {
+Matrix Neuron::sigmoidFunction(const Matrix &m) {
     Matrix res(m);
 
-//    for(int r = res.)
+    for (int r = 0; r < res.height(); r++) {
+        for (int c = 0; c < res.width(); c++) {
+            res.set(r, c, sigmoidFunction(res.get(r, c)));
+        }
+    }
+
+    return res;
+}
+
+Matrix Neuron::tanhFunction(const Matrix &m) {
+    Matrix res(m);
+
+    for (int r = 0; r < res.height(); r++) {
+        for (int c = 0; c < res.width(); c++) {
+            res.set(r, c, tanhFunction(res.get(r, c)));
+        }
+    }
 
     return res;
 }

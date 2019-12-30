@@ -48,7 +48,7 @@ Matrix Matrix::operator+(const Matrix &other) {
     return res;
 }
 
-void Matrix::set(int r, int c, char v) {
+void Matrix::set(int r, int c, double v) {
     data[r][c] = v;
 }
 
@@ -96,5 +96,9 @@ Matrix::Matrix(const Matrix &other) {
             this->data[r][c] = other.data[r][c];
         }
     }
+}
+
+double Matrix::get(int r, int c) {
+    return data[r][c];
 }
 
