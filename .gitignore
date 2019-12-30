@@ -118,4 +118,3 @@ _deps
 
 # project-specific
 /cmake-build-debug/
-/CMakeLists.txt
