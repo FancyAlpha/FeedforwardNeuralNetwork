@@ -37,8 +37,8 @@ vector<MNISTPicture> MNISTReader::getPictures(fstream &pictures, fstream &labels
                 pic.setPixel(j, pixel);
             }
 
-            cout << "digit @ " << i << ", label: " << (int)label << endl;
-            cout << pic;
+//            cout << "digit @ " << i << ", label: " << (int)label << endl;
+//            cout << pic;
             pics.push_back(pic);
         }
     }

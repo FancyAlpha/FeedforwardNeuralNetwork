@@ -24,6 +24,8 @@ public:
 
     ~MNISTPicture();
 
+    MNISTPicture(const MNISTPicture &);
+
 private:
     double *data; // will be given as chars, needs to be converted?
     int w;

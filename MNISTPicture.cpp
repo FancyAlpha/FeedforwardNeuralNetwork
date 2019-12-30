@@ -16,6 +16,17 @@ void MNISTPicture::setPixel(int i, unsigned char val) {
     data[i] = val / 255.0; // normalize pixel value here
 }
 
+MNISTPicture::MNISTPicture(const MNISTPicture &other) {
+    w = other.w;
+    h = other.h;
+    classification = other.classification;
+
+    this->data = new double[w * h];
+    for (int i = 0; i < w * h; i++) {
+        this->data[i] = other.data[i];
+    }
+}
+
 ostream &operator<<(ostream &os, const MNISTPicture &pic) {
 
     for (int c = 0; c < pic.w; c++) {
@@ -58,6 +69,7 @@ int MNISTPicture::width() {
 
 MNISTPicture::~MNISTPicture() {
     delete[] data;
+    data = nullptr;
 }
 
 int MNISTPicture::getClass() {
