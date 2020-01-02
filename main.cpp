@@ -3,6 +3,7 @@
 #include "MNISTReader.h"
 #include "Matrix.h"
 #include "MNISTPicture.h"
+#include "FeedforwardNeuralNet.h"
 
 using namespace std;
 
@@ -13,10 +14,16 @@ int main() {
 
     MNISTReader dataParser{};
     vector<MNISTPicture> pics = dataParser.getPictures(testImages, testLabels);
-    cout << "finished parsing" << endl;
+
+
+    cout << pics[0] << endl;
+
+    int layerSizes[] = {28 * 28, 5, 5, 5, 10};
+
+    FeedforwardNeuralNet net(layerSizes, 5);
 
     for (int i = 0; i < pics.size(); i++) {
-        cout << pics[i] << endl;
+        cout << net.predict(pics[i]) << endl;
     }
 
     testImages.close();

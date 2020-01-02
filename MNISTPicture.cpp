@@ -2,6 +2,7 @@
 // Created by tarak on 12/27/2019.
 //
 
+#include <iostream>
 #include "MNISTPicture.h"
 
 MNISTPicture::MNISTPicture(int width_, int height_, int classification_) {
@@ -74,6 +75,23 @@ MNISTPicture::~MNISTPicture() {
 
 int MNISTPicture::getClass() {
     return classification;
+}
+
+Matrix MNISTPicture::getData() { // ugh, didn't have to be this way
+
+    Matrix res(1, w * h);
+
+    int i = 0;
+    for (int r = 0; r < h; r++) {
+        for (int c = 0; c < w; c++) {
+
+//            cout << "adding " << data[i] << " to matrix" << endl;
+            res.set(i, 0, data[i]);
+            i++;
+        }
+    }
+
+    return res;
 }
 
 //void MNISTPicture::setClass(int val) {

@@ -3,6 +3,7 @@
 //
 
 #include <iomanip>
+#include <iostream>
 #include "Matrix.h"
 
 // pre: width_ > 0, height_ > 0
@@ -16,18 +17,35 @@ Matrix::Matrix(int width_, int height_) {
     }
 }
 
+Matrix::Matrix(const Matrix &other) {
+    w = other.w;
+    h = other.h;
+
+    this->data = new double *[h];
+    for (int r = 0; r < h; r++) {
+        data[r] = new double[w];
+
+        for (int c = 0; c < w; c++) {
+            this->data[r][c] = other.data[r][c];
+        }
+    }
+}
+
 // pre: w of this must equal h of other
 Matrix Matrix::operator*(const Matrix &other) {
 
-    Matrix res(this->h, other.w);
+    Matrix res(other.w, this->h);
 
     for (int r = 0; r < res.h; r++) {
         for (int c = 0; c < res.w; c++) {
 
+            double sum = 0;
             // take the dot product of this matrix's row at r and other's column at c
-            for (int i = 0; i < c; i++) {
-                res.data[r][c] += this->data[r][i] * other.data[i][c];
+            for (int i = 0; i < this->w; i++) {
+                sum += this->data[r][i] * other.data[i][c];
             }
+//            cout << sum << endl;
+            res.data[r][c] = sum;
         }
     }
 
@@ -52,11 +70,11 @@ void Matrix::set(int r, int c, double v) {
     data[r][c] = v;
 }
 
-int Matrix::height() {
+int Matrix::height() const {
     return h;
 }
 
-int Matrix::width() {
+int Matrix::width() const {
     return w;
 }
 
@@ -65,7 +83,8 @@ ostream &operator<<(ostream &os, const Matrix &other) {
     for (int r = 0; r < other.h; r++) {
         os << '|';
         for (int c = 0; c < other.w; c++) {
-            os << std::setw(4) << (int) other.data[r][c];
+            os << std::setw(5) << roundf(other.data[r][c] * 100) / 100;
+//            os << std::setw(5) << other.data[r][c];
         }
 
         os << '|' << endl;
@@ -76,25 +95,15 @@ ostream &operator<<(ostream &os, const Matrix &other) {
 
 Matrix::~Matrix() {
 
-    for (int r = 0; r < h; r++) {
-        delete[] data[r];
-    }
-
-    delete[] data;
-    data = nullptr; // do I need this?
-}
-
-Matrix::Matrix(const Matrix &other) {
-    w = other.w;
-    h = other.h;
-
-    this->data = new double *[h];
-    for (int r = 0; r < h; r++) {
-        data[r] = new double[w];
-
-        for (int c = 0; c < w; c++) {
-            this->data[r][c] = other.data[r][c];
+    if (data != nullptr) {
+//        cout << "deleting matrix... ";
+        for (int r = 0; r < h; r++) {
+            delete[] data[r];
         }
+
+        delete[] data;
+        data = nullptr; // do I need this?
+//        cout << "finished" << endl;
     }
 }
 

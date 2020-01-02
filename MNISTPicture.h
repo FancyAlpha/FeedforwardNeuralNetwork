@@ -12,6 +12,8 @@ class MNISTPicture {
 public:
     MNISTPicture(int, int, int);
 
+    MNISTPicture(const MNISTPicture &);
+
     friend ostream &operator<<(ostream &, const MNISTPicture &);
 
     int height();
@@ -24,14 +26,14 @@ public:
 
     ~MNISTPicture();
 
-    MNISTPicture(const MNISTPicture &);
-
+    Matrix getData();
 private:
     double *data; // will be given as chars, needs to be converted?
     int w;
     int h;
 
     int classification;
+
 };
 
 

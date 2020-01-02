@@ -12,10 +12,14 @@ struct Layer {
 
 public:
     Layer(int, int);
+
     Matrix weights;
     Matrix biases;
 
-    Matrix feedforward(const Matrix&);
+    Matrix feedforward(const Matrix &);
+
+    friend ostream &operator<<(ostream &, const Layer &);
+
 private:
     void randomize();
 };

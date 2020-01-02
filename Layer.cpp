@@ -2,6 +2,7 @@
 // Created by tarak on 12/28/2019.
 //
 
+#include <iostream>
 #include "Layer.h"
 
 // width is size of this layer, height is size of next layer?
@@ -13,7 +14,10 @@ Layer::Layer(int width, int height)
 
 Matrix Layer::feedforward(const Matrix &activations) {
 
-    return weights * activations + biases;
+//    cout << "feeding forward" << endl;
+    Matrix res = weights * activations;
+//    cout << res << endl;
+    return res;// + biases;
 }
 
 // note: only randomizing weights here for simplification
@@ -23,4 +27,13 @@ void Layer::randomize() {
             weights.set(r, c, ((double) rand()) / RAND_MAX);
         }
     }
+}
+
+ostream &operator<<(ostream &os, const Layer &other) {
+
+    os << "layer stats:" << endl;
+    os << "weights " << other.weights.width() << "x" << other.weights.height() << endl;
+    os << "weights " << other.biases.width() << "x" << other.biases.height() << endl;
+
+    return os;
 }

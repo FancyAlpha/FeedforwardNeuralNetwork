@@ -8,15 +8,21 @@
 
 #include <vector>
 #include "Layer.h"
+#include "MNISTPicture.h"
 
 class FeedforwardNeuralNet {
 
 public:
-    FeedforwardNeuralNet(int *layerHeights, int numLayers);
+    FeedforwardNeuralNet(int *, int);
+
+    int predict(const MNISTPicture&);
 
 private:
     vector<Layer> layers;
     vector<Matrix> activations;
+
+    Matrix runNetwork(MNISTPicture);
+    static int getMaxPos(Matrix);
 };
 
 

@@ -15,9 +15,9 @@ public:
 
     Matrix(const Matrix &);
 
-    int height();
+    int height() const;
 
-    int width();
+    int width() const;
 
     double get(int r, int c);
 

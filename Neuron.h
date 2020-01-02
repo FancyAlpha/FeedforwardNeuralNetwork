@@ -12,10 +12,14 @@
 
 class Neuron {
     static double sigmoidFunction(double);
-    static Matrix sigmoidFunction(const Matrix&);
 
     static double tanhFunction(double x);
-    static Matrix tanhFunction(const Matrix&);
+
+
+public:
+    static Matrix sigmoidFunction(const Matrix &);
+
+    static Matrix tanhFunction(const Matrix &);
 };
 
 

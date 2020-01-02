@@ -41,6 +41,9 @@ vector<MNISTPicture> MNISTReader::getPictures(fstream &pictures, fstream &labels
 //            cout << pic;
             pics.push_back(pic);
         }
+        cout << "finished parsing" << endl;
+    } else {
+        cout << "unable to parse" << endl;
     }
 
     return pics;
