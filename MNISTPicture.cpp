@@ -81,16 +81,19 @@ Matrix MNISTPicture::getData() { // ugh, didn't have to be this way
 
     Matrix res(1, w * h);
 
+    double sum = 0;
     int i = 0;
     for (int r = 0; r < h; r++) {
         for (int c = 0; c < w; c++) {
 
 //            cout << "adding " << data[i] << " to matrix" << endl;
             res.set(i, 0, data[i]);
+            sum += data[i];
             i++;
         }
     }
 
+//    cout << "pic sum is " << sum << endl;
     return res;
 }
 

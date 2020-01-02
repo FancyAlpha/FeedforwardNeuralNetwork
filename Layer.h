@@ -21,7 +21,8 @@ public:
     friend ostream &operator<<(ostream &, const Layer &);
 
 private:
-    void randomize();
+
+    void randomize(double, unsigned int);
 };
 
 

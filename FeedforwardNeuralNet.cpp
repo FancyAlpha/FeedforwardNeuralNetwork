@@ -17,6 +17,8 @@ FeedforwardNeuralNet::FeedforwardNeuralNet(int *layerHeights, int numLayers) {
 Matrix FeedforwardNeuralNet::runNetwork(MNISTPicture picture) {
     activations.clear();
 
+//    cout << "activation size: " << activations.size() << endl;
+
     Matrix picMat = picture.getData();
     activations.push_back(picMat);
 //    cout << "there are " << layers.size() << " layers" << endl;
@@ -32,9 +34,11 @@ Matrix FeedforwardNeuralNet::runNetwork(MNISTPicture picture) {
 //        cout << layers[i].weights;
 
         Matrix newCurr = Neuron::sigmoidFunction(layers[i].feedforward(activations.back()));
-
 //        cout << "new activation" << endl;
 //        cout << newCurr << endl;
+
+//        cout << "activation size: " << activations.size() << endl;
+//        cout << "new activation: " << endl << newCurr << endl;
         activations.push_back(newCurr);
     }
 
@@ -48,6 +52,7 @@ int FeedforwardNeuralNet::predict(const MNISTPicture &picture) {
 // pre: mat is a column vector
 int FeedforwardNeuralNet::getMaxPos(Matrix mat) {
 
+//    cout << mat << endl;
     int maxPos = -1;
     double maxVal = DBL_MIN;
     for (int r = 0; r < mat.height(); r++) {

@@ -18,9 +18,9 @@ int main() {
 
     cout << pics[0] << endl;
 
-    int layerSizes[] = {28 * 28, 5, 5, 5, 10};
+    int layerSizes[] = {28 * 28, 9, 10};
 
-    FeedforwardNeuralNet net(layerSizes, 5);
+    FeedforwardNeuralNet net(layerSizes, 3);
 
     for (int i = 0; i < pics.size(); i++) {
         cout << net.predict(pics[i]) << endl;
