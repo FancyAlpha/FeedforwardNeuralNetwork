@@ -19,17 +19,37 @@ public:
 
     int width() const;
 
-    double get(int r, int c);
+    double &operator()(int, int);
 
-    void set(int r, int c, double v);
+    Matrix transpose();
+
+    static Matrix scalarMult(const Matrix &, const Matrix &); // also called the hardamard product
 
     Matrix operator+(const Matrix &);
 
+    void operator+=(const Matrix &);
+
+    void operator+=(double);
+
+    Matrix operator-(const Matrix &);
+
+    void operator-=(const Matrix &);
+
+    void operator-=(double);
+
     Matrix operator*(const Matrix &);
+
+    Matrix operator*(double);
+
+    void operator*=(double);
+
+    void operator/=(double);
 
     friend ostream &operator<<(ostream &, const Matrix &);
 
     ~Matrix();
+
+    bool isNan();
 
 private:
     double **data;

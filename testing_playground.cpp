@@ -31,15 +31,15 @@ int main() {
     Matrix a(2, 2);
     Matrix b(2, 2);
 
-    a.set(0, 0, -1);
-    a.set(0, 1, -2);
-    a.set(1, 0, -2);
-    a.set(1, 1, -1);
-
-    b.set(0, 0, 2);
-    b.set(0, 1, 0);
-    b.set(1, 0, 2);
-    b.set(1, 1, -1);
+//    a.set(0, 0, -1);
+//    a.set(0, 1, -2);
+//    a.set(1, 0, -2);
+//    a.set(1, 1, -1);
+//
+//    b.set(0, 0, 2);
+//    b.set(0, 1, 0);
+//    b.set(1, 0, 2);
+//    b.set(1, 1, -1);
 
     cout << a << endl;
     cout << b << endl;
