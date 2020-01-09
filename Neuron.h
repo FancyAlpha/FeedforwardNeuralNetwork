@@ -13,13 +13,20 @@
 class Neuron {
     static double sigmoidFunction(double);
 
-    static double tanhFunction(double x);
+    static double sigmoidDerivFunction(double);
 
+    static double tanhFunction(double);
+
+    static double tanhDerivFunction(double);
 
 public:
     static Matrix sigmoidFunction(const Matrix &);
 
+    static Matrix sigmoidDerivFunction(const Matrix &);
+
     static Matrix tanhFunction(const Matrix &);
+
+    static Matrix tanhDerivFunction(const Matrix &);
 };
 
 
