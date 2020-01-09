@@ -87,7 +87,7 @@ Matrix MNISTPicture::getData() { // ugh, didn't have to be this way
         for (int c = 0; c < w; c++) {
 
 //            cout << "adding " << data[i] << " to matrix" << endl;
-            res.set(i, 0, data[i]);
+            res(i, 0) = data[i];
             sum += data[i];
             i++;
         }

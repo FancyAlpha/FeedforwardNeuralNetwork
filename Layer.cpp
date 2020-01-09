@@ -24,7 +24,7 @@ void Layer::randomize(double spread, unsigned int seed) {
 
     for (int r = 0; r < weights.height(); r++) {
         for (int c = 0; c < weights.width(); c++) {
-            weights.set(r, c, (((double) rand()) / RAND_MAX) * 2 * spread - spread);
+            weights(r, c) = (((double) rand()) / RAND_MAX) * 2 * spread - spread;
         }
     }
 }
