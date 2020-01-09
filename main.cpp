@@ -13,10 +13,11 @@ int main() {
     fstream testImages("../data/test/t10k-images-idx3-ubyte/t10k-images.idx3-ubyte", ios::in | ios::binary);
     fstream testLabels("../data/test/t10k-labels-idx1-ubyte/t10k-labels.idx1-ubyte", ios::in | ios::binary);
 
-    MNISTReader dataParser{};
-    vector<MNISTPicture> pics = dataParser.getPictures(testImages, testLabels);
+    fstream trainImages("../data/training/train-images-idx3-ubyte/train-images.idx3-ubyte", ios::in | ios::binary);
+    fstream trainLabels("../data/training/train-labels-idx1-ubyte/train-labels.idx1-ubyte", ios::in | ios::binary);
 
-//    cout << pics[0] << endl;
+    MNISTReader dataParser{};
+    vector<MNISTPicture> pics = dataParser.getPictures(trainImages, trainLabels);
 
     int batchSize = 10;
     int layerSizes[] = {28 * 28, 9, 10};
@@ -41,7 +42,6 @@ int main() {
     stopwatch::Stopwatch watch;
     cout << batches.size() << " batches created, moving to learning" << endl;
     for (int i = 0; i < batches.size(); i++) {
-//        cout << batches[i][0] << endl;
 
         watch.start();
         double cost = net.learn(batches[i]);
@@ -57,8 +57,8 @@ int main() {
 //        cout << net.predict(pics[i]) << endl;
 //    }
 
-    testImages.close();
-    testLabels.close();
+    trainImages.close();
+    trainLabels.close();
 
     return 0;
 }
