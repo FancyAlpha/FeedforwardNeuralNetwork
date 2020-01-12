@@ -16,12 +16,17 @@ class MNISTReader {
 public:
     vector<MNISTPicture> getPictures(fstream &, fstream &);
 
+    int width();
+
+    int height();
+
 private:
     int picMagicNum;
     int labMagicNum;
     int numPictures;
-    int width;
-    int height;
+    int w;
+    int h;
+    const int MAX_PICTURES = 999999999;
 
     static int reverseInt(int);
 

@@ -24,7 +24,7 @@ double Neuron::sigmoidDerivFunction(double x) {
 
 double Neuron::tanhDerivFunction(double x) {
     double tanh = tanhFunction(x);
-    return 1 - tanh * tanh;
+    return 1 - (tanh * tanh);
 }
 
 Matrix Neuron::sigmoidFunction(const Matrix &m) {

@@ -6,11 +6,11 @@
 #include <time.h>
 #include "Layer.h"
 
-// width is size of this layer, height is size of next layer?
+// w is size of this layer, h is size of next layer?
 Layer::Layer(int width, int height)
         : weights(width, height),
           biases(1, height) {
-    randomize(10, time(nullptr));
+    randomize(SPREAD, time(nullptr));
 }
 
 Matrix Layer::feedforward(const Matrix &activations) {
@@ -22,9 +22,14 @@ Matrix Layer::feedforward(const Matrix &activations) {
 void Layer::randomize(double spread, unsigned int seed) {
     srand(seed);
 
-    for (int r = 0; r < weights.height(); r++) {
-        for (int c = 0; c < weights.width(); c++) {
-            weights(r, c) = (((double) rand()) / RAND_MAX) * 2 * spread - spread;
+    randomizeMatrix(weights, spread); // todo move this to matrix class
+    randomizeMatrix(biases, spread);
+}
+
+void Layer::randomizeMatrix(Matrix &mat, double spread) {
+    for (int r = 0; r < mat.height(); r++) {
+        for (int c = 0; c < mat.width(); c++) {
+            mat(r, c) = (((((double) rand()) / RAND_MAX) * 2) - 1) * spread;
         }
     }
 }

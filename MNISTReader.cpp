@@ -23,22 +23,20 @@ vector<MNISTPicture> MNISTReader::getPictures(fstream &pictures, fstream &labels
         readHeader(pictures, labels);
 
         cout << "There are " << numPictures << " pictures to parse" << endl;
-        cout << "Each picture is " << width << "x" << height << " pixels" << endl;
+        cout << "Each picture is " << w << "x" << h << " pixels" << endl;
         cout << endl;
 
-        for (int i = 0; i < numPictures; i++) {
+        for (int i = 0; i < numPictures && i < MAX_PICTURES; i++) {
 
             unsigned char label = readByteFromFile(labels);
-            MNISTPicture pic(width, height, label);
+            MNISTPicture pic(w, h, label);
 
-            for (int j = 0; j < width * height; j++) {
+            for (int j = 0; j < w * h; j++) {
 
                 unsigned char pixel = readByteFromFile(pictures);
                 pic.setPixel(j, pixel);
             }
 
-//            cout << "digit @ " << i << ", label: " << (int)label << endl;
-//            cout << pic;
             pics.push_back(pic);
         }
         cout << "finished parsing" << endl;
@@ -63,8 +61,8 @@ void MNISTReader::readHeader(fstream &pictures, fstream &labels) {
         cout << "incorrect number of pictures! " << numPictures << " vs " << numLabels;
     }
 
-    height = readIntFromFile(pictures);
-    width = readIntFromFile(pictures);
+    h = readIntFromFile(pictures);
+    w = readIntFromFile(pictures);
 }
 
 int MNISTReader::readIntFromFile(fstream &file) {
@@ -78,4 +76,12 @@ unsigned char MNISTReader::readByteFromFile(fstream &file) {
     unsigned char val = 0;
     file.read((char *) &val, sizeof(val));
     return val;
+}
+
+int MNISTReader::width() {
+    return w;
+}
+
+int MNISTReader::height() {
+    return h;
 }

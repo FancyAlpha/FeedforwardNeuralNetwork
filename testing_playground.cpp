@@ -21,7 +21,7 @@ int main() {
 //
 //    cout << "feedforward forced step" << endl;
 //    Matrix res = a1.weights * activation1;
-//    cout << res.width() << "x" << res.height() << " matrix" << endl;
+//    cout << res.w() << "x" << res.h() << " matrix" << endl;
 //    cout << res << endl;
 //
 //
@@ -31,15 +31,15 @@ int main() {
     Matrix a(2, 2);
     Matrix b(2, 2);
 
-//    a.set(0, 0, -1);
-//    a.set(0, 1, -2);
-//    a.set(1, 0, -2);
-//    a.set(1, 1, -1);
-//
-//    b.set(0, 0, 2);
-//    b.set(0, 1, 0);
-//    b.set(1, 0, 2);
-//    b.set(1, 1, -1);
+    a(0, 0) = -1;
+    a(0, 1) = -2;
+    a(1, 0) = -2;
+    a(1, 1) = -1;
+
+    b(0, 0) = 2;
+    b(0, 1) = 0;
+    b(1, 0) = 2;
+    b(1, 1) = -1;
 
     cout << a << endl;
     cout << b << endl;

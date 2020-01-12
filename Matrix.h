@@ -23,6 +23,8 @@ public:
 
     Matrix transpose();
 
+    double getSum();
+
     static Matrix scalarMult(const Matrix &, const Matrix &); // also called the hardamard product
 
     Matrix operator+(const Matrix &);

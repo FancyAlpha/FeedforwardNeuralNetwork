@@ -22,7 +22,11 @@ public:
 
 private:
 
+    const double SPREAD = 0.1;
+
     void randomize(double, unsigned int);
+
+    static void randomizeMatrix(Matrix &, double spread);
 };
 
 
