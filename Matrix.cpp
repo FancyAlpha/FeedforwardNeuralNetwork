@@ -19,8 +19,8 @@ Matrix::Matrix(int width_, int height_) {
     data = new double *[height_];
     data[0] = new double[width_ * height_]();
 
-    for (int r = 1; r < height_; r++) {
-        data[r] = data[0] + r * w;
+    for (int r = 0; r < height_; r++) {
+        data[r] = data[0] + (r * w);
     }
 }
 
@@ -31,7 +31,7 @@ Matrix::Matrix(const Matrix &other) {
     data = new double *[h];
     data[0] = new double[w * h]();
 
-    for (int r = 1; r < h; r++) {
+    for (int r = 0; r < h; r++) {
         data[r] = data[0] + r * w;
 
         for (int c = 0; c < w; c++) {
@@ -78,10 +78,13 @@ Matrix Matrix::operator+(const Matrix &other) {
 
     for (int r = 0; r < this->h; r++) {
         for (int c = 0; c < this->w; c++) {
-            res.data[r][c] = this->data[r][c] + other.data[r][c];
+//            cout << "(" << r << ", " << c << ") add " << this->data[r][c] << " and " << other.data[r][c] << endl;
+            res(r, c) = this->data[r][c] + other.data[r][c];
+//            res.data[r][c] = -1;
         }
     }
 
+    res(0, 0) = -1;
     return res;
 }
 
@@ -105,7 +108,6 @@ Matrix Matrix::operator-(const Matrix &other) {
 }
 
 void Matrix::operator+=(const Matrix &other) {
-
 
     if (this->w != other.w || this->h != other.h) {
         cout << "Matrix += operation invalid: " << this->w << "x" << this->h << " plus " << other.w << "x" << other.h
@@ -232,9 +234,10 @@ void Matrix::operator-=(double off) {
 Matrix Matrix::transpose() {
     Matrix res(h, w);
 
-    for (int r = 0; r < h; r++) {
-        for (int c = 0; c < w; c++) {
-            res.data[c][r] = data[r][c];
+    for (int r = 0; r < res.h; r++) {
+        for (int c = 0; c < res.w; c++) {
+//            cout << data[c][r] << ": " << r << ", " << c << endl;
+            res(r, c) = this->data[c][r];
         }
     }
 

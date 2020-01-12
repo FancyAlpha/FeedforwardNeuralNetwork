@@ -28,22 +28,28 @@ int main() {
 //    Matrix activation2 = a1.feedforward(activation1);
 //    cout << "post layer 1" << endl << activation2 << endl;
 
-    Matrix a(2, 2);
-    Matrix b(2, 2);
+    Matrix a(3, 3);
+    Matrix b(3, 3);
 
-    a(0, 0) = -1;
-    a(0, 1) = -2;
-    a(1, 0) = -2;
-    a(1, 1) = -1;
+    a(0, 0) = 1;
+    a(0, 1) = 2;
+    a(0, 2) = 3;
+    a(1, 0) = 4;
+    a(1, 1) = 5;
+    a(1, 2) = 6;
+    a(2, 1) = -1;
 
     b(0, 0) = 2;
     b(0, 1) = 0;
     b(1, 0) = 2;
-    b(1, 1) = -1;
+    b(2, 1) = -1;
 
     cout << a << endl;
     cout << b << endl;
-    cout << a * b << endl;
+    Matrix c = a;
+//    c(0, 0) = -1;
+    c += b;
+    cout << c << endl;
 
     return 0;
 }

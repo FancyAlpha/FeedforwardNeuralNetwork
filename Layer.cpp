@@ -3,27 +3,26 @@
 //
 
 #include <iostream>
-#include <time.h>
+#include <ctime>
 #include "Layer.h"
 
 // w is size of this layer, h is size of next layer?
-Layer::Layer(int width, int height)
+Layer::Layer(int width, int height, bool rand = true)
         : weights(width, height),
           biases(1, height) {
-    randomize(SPREAD, time(nullptr));
+
+    int seed = time(nullptr);
+    srand(seed);
+
+    randomizeMatrix(weights, SPREAD); // todo move this to matrix class
+    if (rand) {
+        randomizeMatrix(biases, SPREAD);
+    }
 }
 
 Matrix Layer::feedforward(const Matrix &activations) {
 
     return (weights * activations) + biases;
-}
-
-// note: only randomizing weights here for simplification
-void Layer::randomize(double spread, unsigned int seed) {
-    srand(seed);
-
-    randomizeMatrix(weights, spread); // todo move this to matrix class
-    randomizeMatrix(biases, spread);
 }
 
 void Layer::randomizeMatrix(Matrix &mat, double spread) {

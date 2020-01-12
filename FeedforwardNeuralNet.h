@@ -17,7 +17,7 @@ public:
 
     int predict(const MNISTPicture &);
 
-    double learn(const vector<MNISTPicture> &);
+    double learn(const vector<MNISTPicture> &, double);
 
 private:
     vector<Layer> layers;
@@ -43,7 +43,7 @@ private:
 
     static void sumVectors(vector<Matrix> &, vector<Matrix>);
 
-    static void averageGradient(vector<Matrix> &);
+    static void applyScaleFactor(vector<Matrix> &, double);
 };
 
 

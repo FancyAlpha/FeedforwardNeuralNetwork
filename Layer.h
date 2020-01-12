@@ -11,7 +11,7 @@
 struct Layer {
 
 public:
-    Layer(int, int);
+    Layer(int, int, bool);
 
     Matrix weights;
     Matrix biases;
@@ -22,9 +22,7 @@ public:
 
 private:
 
-    const double SPREAD = 0.1;
-
-    void randomize(double, unsigned int);
+    const double SPREAD = 1;
 
     static void randomizeMatrix(Matrix &, double spread);
 };
