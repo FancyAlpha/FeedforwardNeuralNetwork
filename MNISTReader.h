@@ -11,10 +11,11 @@
 
 using namespace std;
 
+
 class MNISTReader {
 
 public:
-    vector<MNISTPicture> getPictures(fstream &, fstream &);
+    vector<MNISTPicture> getPictures(fstream &, fstream &, int);
 
     int width();
 
@@ -26,16 +27,14 @@ private:
     int numPictures;
     int w;
     int h;
-    const int MAX_PICTURES = 999999999;
 
     static int reverseInt(int);
-
-    void readHeader(fstream &, fstream &);
 
     static int readIntFromFile(fstream &file);
 
     static unsigned char readByteFromFile(fstream &file);
 
+    void readHeader(fstream &, fstream &);
 };
 
 

@@ -4,23 +4,14 @@
 
 using namespace std;
 
-int MNISTReader::reverseInt(int i) {
-    unsigned char c1, c2, c3, c4;
 
-    c1 = i & 255;
-    c2 = (i >> 8) & 255;
-    c3 = (i >> 16) & 255;
-    c4 = (i >> 24) & 255;
-
-    return ((int) c1 << 24) + ((int) c2 << 16) + ((int) c3 << 8) + c4;
-}
-
-vector<MNISTPicture> MNISTReader::getPictures(fstream &pictures, fstream &labels) {
+vector<MNISTPicture> MNISTReader::getPictures(fstream &pictures, fstream &labels, const int MAX_PICTURES) {
 
     vector<MNISTPicture> pics;
     if (pictures.is_open() && labels.is_open()) {
 
         readHeader(pictures, labels);
+        pics.reserve(numPictures);
 
         cout << "There are " << numPictures << " pictures to parse" << endl;
         cout << "Each picture is " << w << "x" << h << " pixels" << endl;
@@ -47,41 +38,66 @@ vector<MNISTPicture> MNISTReader::getPictures(fstream &pictures, fstream &labels
     return pics;
 }
 
-void MNISTReader::readHeader(fstream &pictures, fstream &labels) {
 
-    picMagicNum = readIntFromFile(pictures);
-    labMagicNum = readIntFromFile(labels);
+int MNISTReader::width() {
 
-    // todo do check for magic number here?
-
-    numPictures = readIntFromFile(pictures);
-
-    int numLabels = readIntFromFile(labels);
-    if (numPictures != numLabels) {
-        cout << "incorrect number of pictures! " << numPictures << " vs " << numLabels;
-    }
-
-    h = readIntFromFile(pictures);
-    w = readIntFromFile(pictures);
+    return w;
 }
 
+
+int MNISTReader::height() {
+
+    return h;
+}
+
+
+int MNISTReader::reverseInt(int i) {
+
+    unsigned char c1, c2, c3, c4;
+
+    c1 = i & 255;
+    c2 = (i >> 8) & 255;
+    c3 = (i >> 16) & 255;
+    c4 = (i >> 24) & 255;
+
+    return ((int) c1 << 24) + ((int) c2 << 16) + ((int) c3 << 8) + c4;
+}
+
+
 int MNISTReader::readIntFromFile(fstream &file) {
+
     int val = 0;
     file.read((char *) &val, sizeof(val));
     val = reverseInt(val);
     return val;
 }
 
+
 unsigned char MNISTReader::readByteFromFile(fstream &file) {
+
     unsigned char val = 0;
     file.read((char *) &val, sizeof(val));
     return val;
 }
 
-int MNISTReader::width() {
-    return w;
-}
 
-int MNISTReader::height() {
-    return h;
+void MNISTReader::readHeader(fstream &pictures, fstream &labels) {
+
+    picMagicNum = readIntFromFile(pictures);
+    labMagicNum = readIntFromFile(labels);
+
+    if (picMagicNum != 2051 || labMagicNum != 2049) {
+        cerr << "picture and label files' magic number do not correspond to each other: "
+             << "pictures file: " << picMagicNum << ", labels file: " << labMagicNum << endl;
+    }
+
+    numPictures = readIntFromFile(pictures);
+    int numLabels = readIntFromFile(labels);
+
+    if (numPictures != numLabels) {
+        cout << "incorrect number of pictures! " << numPictures << " vs " << numLabels;
+    }
+
+    h = readIntFromFile(pictures);
+    w = readIntFromFile(pictures);
 }

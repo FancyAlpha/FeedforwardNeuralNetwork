@@ -15,9 +15,9 @@ public:
 
     Matrix(const Matrix &);
 
-    int height() const;
-
     int width() const;
+
+    int height() const;
 
     double &operator()(int, int);
 
@@ -26,6 +26,10 @@ public:
     double getSum();
 
     static Matrix scalarMult(const Matrix &, const Matrix &); // also called the hardamard product
+
+    void randomize(double, double);
+
+    friend ostream &operator<<(ostream &, const Matrix &);
 
     Matrix operator+(const Matrix &);
 
@@ -47,11 +51,7 @@ public:
 
     void operator/=(double);
 
-    friend ostream &operator<<(ostream &, const Matrix &);
-
     ~Matrix();
-
-    bool isNan();
 
 private:
     double **data;

@@ -10,6 +10,7 @@
 #include "Layer.h"
 #include "MNISTPicture.h"
 
+
 class FeedforwardNeuralNet {
 
 public:
@@ -17,33 +18,36 @@ public:
 
     int predict(const MNISTPicture &);
 
-    double learn(const vector<MNISTPicture> &, double);
+    void learn(const vector<MNISTPicture> &, double);
 
 private:
     vector<Layer> layers;
     vector<Matrix> activations; // without sigmoid applied
     vector<Matrix> smoothActivations; // with sigmoid applied
+
     Matrix runNetwork(MNISTPicture);
+
+    void createZeroGradients(vector<Matrix> &weightGradient, vector<Matrix> &biasGradient) const;
 
     static int getMaxPos(Matrix);
 
-    static double costFunction(Matrix);
-
     static Matrix getSolution(int);
 
-    vector<Matrix> getErrors(const Matrix &);
+    static double costFunction(Matrix &, Matrix &);
 
-    vector<Matrix> getWeightGradient(vector<Matrix> errors);
+    vector<Matrix> getErrors(Matrix &, Matrix &);
+
+    vector<Matrix> getWeightGradient(vector<Matrix> &errors);
 
     vector<Matrix> getBiasGradient(vector<Matrix> errors);
+
+    static void sumVectors(vector<Matrix> &, vector<Matrix> &);
+
+    static void applyScaleFactor(vector<Matrix> &, double);
 
     void applyWeightGradients(vector<Matrix>);
 
     void applyBiasGradients(vector<Matrix>);
-
-    static void sumVectors(vector<Matrix> &, vector<Matrix>);
-
-    static void applyScaleFactor(vector<Matrix> &, double);
 };
 
 
