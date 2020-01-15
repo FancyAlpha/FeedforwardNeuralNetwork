@@ -28,19 +28,21 @@ int main() {
     cout << "parsing data and creating images" << endl;
 
 
+    // most of the hyper-parameters for this network are here
     const int epochs = 4;
     const int batchSize = 5;
     const double learningRate = 2;
+    SigmoidNeuron hiddenNeuron{};
+    SigmoidNeuron finalNeuron{};
     const int maxPictures = INT_MAX;
-
+    const int layerSizes[] = {784, 35, 10};
 
     MNISTReader dataParser{};
     vector<MNISTPicture> trainingPics = dataParser.getPictures(trainImages, trainLabels, maxPictures);
     vector<MNISTPicture> testPics = dataParser.getPictures(testImages, testLabels, maxPictures);
 
-    int layerSizes[] = {dataParser.width() * dataParser.height(), 35, 10};
 
-    FeedforwardNeuralNet net(layerSizes, sizeof(layerSizes) / sizeof(int));
+    FeedforwardNeuralNet net(layerSizes, sizeof(layerSizes) / sizeof(int), &hiddenNeuron, &finalNeuron);
 
     cout << "creating batches of size " << batchSize << endl;
 

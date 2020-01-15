@@ -7,7 +7,10 @@
 #include "Neuron.h"
 
 
-FeedforwardNeuralNet::FeedforwardNeuralNet(int *layerHeights, int numLayers) {
+FeedforwardNeuralNet::FeedforwardNeuralNet(const int *layerHeights, int numLayers, Neuron *hidden, Neuron *fin) {
+
+    hiddenLayerNeuron = hidden;
+    finalLayerNeuron = fin;
 
     for (int i = 1; i < numLayers; i++) {
         // passing in the arguments of the constructor of the object we want to make is enough
@@ -64,9 +67,13 @@ Matrix FeedforwardNeuralNet::runNetwork(MNISTPicture picture) {
 
         Matrix newCurr = layers[i].feedforward(smoothActivations.back());
         activations.push_back(newCurr);
-        Matrix smoothedCurr = Neuron::sigmoidFunction(newCurr);
+
+        Neuron *activeNeuron = i < layers.size() - 1 ? hiddenLayerNeuron : finalLayerNeuron;
+
+        Matrix smoothedCurr = activeNeuron->activation(newCurr);
         smoothActivations.push_back(smoothedCurr);
     }
+
 
     return smoothActivations.back();
 }
@@ -123,7 +130,7 @@ double FeedforwardNeuralNet::costFunction(Matrix &res, Matrix &ans) {
 
 vector<Matrix> FeedforwardNeuralNet::getErrors(Matrix &res, Matrix &ans) {
 
-    Matrix activationDelta = Neuron::sigmoidDerivFunction(activations.back());
+    Matrix activationDelta = hiddenLayerNeuron->activationPrime(activations.back());
 
     Matrix error = Matrix::scalarMult(res - ans, activationDelta);
 
@@ -133,7 +140,7 @@ vector<Matrix> FeedforwardNeuralNet::getErrors(Matrix &res, Matrix &ans) {
 
     for (int l = layers.size() - 2; l >= 0; l--) {
 
-        Matrix activationDeriv = Neuron::sigmoidDerivFunction(activations[l]);
+        Matrix activationDeriv = hiddenLayerNeuron->activationPrime(activations[l]);
 
         // errors[0] is always the error of the layer in front
         Matrix newError = Matrix::scalarMult(layers[l + 1].weights.transpose() * errors.front(), activationDeriv);

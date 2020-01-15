@@ -5,75 +5,56 @@
 #include <iostream>
 #include "Neuron.h"
 
-double Neuron::sigmoidFunction(double x) {
+
+Matrix Neuron::activation(const Matrix &m) {
+
+    Matrix res(m);
+
+    for (int r = 0; r < res.height(); r++) {
+        for (int c = 0; c < res.width(); c++) {
+            res(r, c) = activation(res(r, c));
+        }
+    }
+
+    return res;
+}
+
+
+Matrix Neuron::activationPrime(const Matrix &m) {
+
+    Matrix res(m);
+
+    for (int r = 0; r < res.height(); r++) {
+        for (int c = 0; c < res.width(); c++) {
+            res(r, c) = activationPrime(res(r, c));
+        }
+    }
+
+    return res;
+}
+
+
+double SigmoidNeuron::activation(double x) {
 
     return (double) 1 / ((double) 1 + exp(double(-x)));
 }
 
-double Neuron::tanhFunction(double x) {
+
+double SigmoidNeuron::activationPrime(double x) {
+
+    double sig = activation(x);
+    return sig * (1 - sig);
+}
+
+
+double TanhNeuron::activation(double x) {
+
     return tanh(x);
 }
 
 
-double Neuron::sigmoidDerivFunction(double x) {
+double TanhNeuron::activationPrime(double x) {
 
-    double sig = sigmoidFunction(x);
-    return sig * (1 - sig);
-}
-
-double Neuron::tanhDerivFunction(double x) {
-    double tanx = tanhFunction(x);
+    double tanx = activation(x);
     return 1 - (tanx * tanx);
-}
-
-
-Matrix Neuron::sigmoidFunction(const Matrix &m) {
-
-    Matrix res(m);
-
-    for (int r = 0; r < res.height(); r++) {
-        for (int c = 0; c < res.width(); c++) {
-            res(r, c) = sigmoidFunction(res(r, c));
-        }
-    }
-
-    return res;
-}
-
-Matrix Neuron::tanhFunction(const Matrix &m) {
-    Matrix res(m);
-
-    for (int r = 0; r < res.height(); r++) {
-        for (int c = 0; c < res.width(); c++) {
-            res(r, c) = tanhFunction(res(r, c));
-        }
-    }
-
-    return res;
-}
-
-
-Matrix Neuron::sigmoidDerivFunction(const Matrix &m) {
-
-    Matrix res(m);
-
-    for (int r = 0; r < res.height(); r++) {
-        for (int c = 0; c < res.width(); c++) {
-            res(r, c) = sigmoidDerivFunction(res(r, c));
-        }
-    }
-
-    return res;
-}
-
-Matrix Neuron::tanhDerivFunction(const Matrix &m) {
-    Matrix res(m);
-
-    for (int r = 0; r < res.height(); r++) {
-        for (int c = 0; c < res.width(); c++) {
-            res(r, c) = tanhDerivFunction(res(r, c));
-        }
-    }
-
-    return res;
 }

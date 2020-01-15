@@ -10,23 +10,34 @@
 #include <regex>
 #include "Matrix.h"
 
+
 class Neuron {
-    static double sigmoidFunction(double);
 
-    static double sigmoidDerivFunction(double);
+private:
+    virtual double activation(double) = 0;
 
-    static double tanhFunction(double);
-
-    static double tanhDerivFunction(double);
-
+    virtual double activationPrime(double) = 0;
 public:
-    static Matrix sigmoidFunction(const Matrix &);
 
-    static Matrix sigmoidDerivFunction(const Matrix &);
+    Matrix activation(const Matrix &);
 
-    static Matrix tanhFunction(const Matrix &);
+    Matrix activationPrime(const Matrix &);
+};
 
-    static Matrix tanhDerivFunction(const Matrix &);
+
+class SigmoidNeuron : public Neuron {
+
+private:
+    double activation(double) override;
+    double activationPrime(double) override;
+};
+
+
+class TanhNeuron : public Neuron {
+
+private:
+    double activation(double) override;
+    double activationPrime(double) override;
 };
 
 

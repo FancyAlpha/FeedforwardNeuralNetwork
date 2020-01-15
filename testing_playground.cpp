@@ -4,7 +4,7 @@
 
 int main() {
 
-    // simulate 3, 2, 1 neuron network
+    // simulate 3, 2, 1 hiddenLayerNeuron network
 //    Layer a1(786, 6);
 ////    Layer a2(2, 1);
 //

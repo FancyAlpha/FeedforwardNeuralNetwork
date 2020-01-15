@@ -9,18 +9,21 @@
 #include <vector>
 #include "Layer.h"
 #include "MNISTPicture.h"
+#include "Neuron.h"
 
 
 class FeedforwardNeuralNet {
 
 public:
-    FeedforwardNeuralNet(int *, int);
+    FeedforwardNeuralNet(const int *, int, Neuron *, Neuron *);
 
     int predict(const MNISTPicture &);
 
     void learn(const vector<MNISTPicture> &, double);
 
 private:
+    Neuron *hiddenLayerNeuron;
+    Neuron *finalLayerNeuron;
     vector<Layer> layers;
     vector<Matrix> activations; // without sigmoid applied
     vector<Matrix> smoothActivations; // with sigmoid applied
