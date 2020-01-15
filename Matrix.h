@@ -6,6 +6,7 @@
 #define NEURALNETWORK_MATRIX_H
 
 #include <ostream>
+#include "Randomizer.h"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ public:
 
     static Matrix scalarMult(const Matrix &, const Matrix &); // also called the hardamard product
 
-    void randomize(double, double);
+    void randomize(Randomizer *);
 
     friend ostream &operator<<(ostream &, const Matrix &);
 

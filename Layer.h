@@ -8,13 +8,14 @@
 
 #include "Matrix.h"
 
+
 struct Layer {
 
 public:
     Matrix weights;
     Matrix biases;
 
-    Layer(int, int, bool= true, bool= true, double= -0.5, double= 0.5);
+    Layer(int, int, Randomizer * = nullptr, Randomizer * = nullptr);
 
     Matrix feedforward(const Matrix &);
 

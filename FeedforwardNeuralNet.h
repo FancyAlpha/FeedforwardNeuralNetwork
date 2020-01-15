@@ -15,7 +15,7 @@
 class FeedforwardNeuralNet {
 
 public:
-    FeedforwardNeuralNet(const int *, int, Neuron *, Neuron *);
+    FeedforwardNeuralNet(const int *, int, Neuron *, Neuron *, Randomizer *);
 
     int predict(const MNISTPicture &);
 

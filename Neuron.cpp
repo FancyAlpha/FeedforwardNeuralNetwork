@@ -6,7 +6,7 @@
 #include "Neuron.h"
 
 
-Matrix Neuron::activation(const Matrix &m) {
+Matrix Neuron::activation(Matrix &m) {
 
     Matrix res(m);
 
@@ -20,7 +20,7 @@ Matrix Neuron::activation(const Matrix &m) {
 }
 
 
-Matrix Neuron::activationPrime(const Matrix &m) {
+Matrix Neuron::activationPrime(Matrix &m) {
 
     Matrix res(m);
 
@@ -36,7 +36,7 @@ Matrix Neuron::activationPrime(const Matrix &m) {
 
 double SigmoidNeuron::activation(double x) {
 
-    return (double) 1 / ((double) 1 + exp(double(-x)));
+    return 1.0 / (1.0 + exp(-x));
 }
 
 
@@ -57,4 +57,30 @@ double TanhNeuron::activationPrime(double x) {
 
     double tanx = activation(x);
     return 1 - (tanx * tanx);
+}
+
+
+Matrix SoftmaxNeuron::activation(Matrix &m) {
+
+    Matrix res(m);
+
+    double sum = 0;
+
+    for (int r = 0; r < res.height(); r++) {
+        for (int c = 0; c < res.width(); c++) {
+
+            double newX = exp(res(r, c));
+            res(r, c) = newX;
+            sum += newX;
+        }
+    }
+
+    res /= sum;
+    return res;
+}
+
+
+Matrix SoftmaxNeuron::activationPrime(Matrix &) {
+
+    return Matrix(0, 0);
 }

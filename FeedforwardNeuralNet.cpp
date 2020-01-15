@@ -7,14 +7,19 @@
 #include "Neuron.h"
 
 
-FeedforwardNeuralNet::FeedforwardNeuralNet(const int *layerHeights, int numLayers, Neuron *hidden, Neuron *fin) {
+// todo add cost function object
+FeedforwardNeuralNet::FeedforwardNeuralNet(const int *layerHeights,
+                                           int numLayers,
+                                           Neuron *hidden,
+                                           Neuron *fin,
+                                           Randomizer *rand) {
 
     hiddenLayerNeuron = hidden;
     finalLayerNeuron = fin;
 
     for (int i = 1; i < numLayers; i++) {
         // passing in the arguments of the constructor of the object we want to make is enough
-        layers.emplace_back(layerHeights[i - 1], layerHeights[i], i != 1);
+        layers.emplace_back(layerHeights[i - 1], layerHeights[i], rand, i == 1 ? nullptr : rand);
     }
 }
 
@@ -74,6 +79,7 @@ Matrix FeedforwardNeuralNet::runNetwork(MNISTPicture picture) {
         smoothActivations.push_back(smoothedCurr);
     }
 
+//    cout << smoothActivations.back() << endl;
 
     return smoothActivations.back();
 }

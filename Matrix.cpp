@@ -5,6 +5,8 @@
 #include <iomanip>
 #include <iostream>
 #include "Matrix.h"
+#include "Randomizer.h"
+
 
 // pre: width_ > 0, height_ > 0
 Matrix::Matrix(int width_, int height_) {
@@ -92,13 +94,15 @@ Matrix Matrix::scalarMult(const Matrix &a, const Matrix &b) {
     return res;
 }
 
-void Matrix::randomize(double start, double end) {
+
+void Matrix::randomize(Randomizer *random) {
+
     int seed = time(nullptr);
     srand(seed);
 
     for (int r = 0; r < h; r++) {
         for (int c = 0; c < w; c++) {
-            data[r][c] = ((((double) rand()) / RAND_MAX) * (end - start)) - end;
+            data[r][c] = random->getRandom();
         }
     }
 }

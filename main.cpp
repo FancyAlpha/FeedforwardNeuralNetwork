@@ -34,15 +34,16 @@ int main() {
     const double learningRate = 2;
     SigmoidNeuron hiddenNeuron{};
     SigmoidNeuron finalNeuron{};
-    const int maxPictures = INT_MAX;
     const int layerSizes[] = {784, 35, 10};
+//    RegularRandom random(time(nullptr), -0.5, 0.5);
+    NormalRandom random(time(nullptr));
+    const int maxPictures = INT_MAX;
 
     MNISTReader dataParser{};
     vector<MNISTPicture> trainingPics = dataParser.getPictures(trainImages, trainLabels, maxPictures);
     vector<MNISTPicture> testPics = dataParser.getPictures(testImages, testLabels, maxPictures);
 
-
-    FeedforwardNeuralNet net(layerSizes, sizeof(layerSizes) / sizeof(int), &hiddenNeuron, &finalNeuron);
+    FeedforwardNeuralNet net(layerSizes, sizeof(layerSizes) / sizeof(int), &hiddenNeuron, &finalNeuron, &random);
 
     cout << "creating batches of size " << batchSize << endl;
 
